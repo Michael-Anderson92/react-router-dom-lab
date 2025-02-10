@@ -1,22 +1,17 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './MailboxList.css';
 
-const MailboxDetails = ({ mailboxes }) => {
-  const { mailboxId } = useParams();
-  const selectedBox = mailboxes.find(mailbox => mailbox._id === Number(mailboxId));
-
-  if (!selectedBox) {
-    return <div>Mailbox Not Found!</div>;
-  }
-
+const MailboxList = ({ mailboxes }) => {
   return (
     <div>
-      <h2>Mailbox Details</h2>
-      <p>Box Number: {selectedBox._id}</p>
-      <p>Box Owner: {selectedBox.boxOwner}</p>
-      <p>Box Size: {selectedBox.boxSize}</p>
+      {mailboxes.map(mailbox => (
+        <div key={mailbox._id} className="mail-box">
+          <Link to={`/mailboxes/${mailbox._id}`}>Mailbox {mailbox._id}</Link>
+        </div>
+      ))}
     </div>
   );
 };
 
-export default MailboxDetails;
+export default MailboxList;
